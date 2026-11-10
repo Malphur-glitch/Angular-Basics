@@ -1,0 +1,123 @@
+/* Custom properties inherit from the resume's :host, fallbacks keep this standalone-safe */
+:host {
+  display: block;
+  --pc-obsidian: var(--obsidian, #0e0f11);
+  --pc-ice-light: var(--ice-light, #f6f8f9);
+  --pc-ice-deep: var(--ice-deep, #c8d0d6);
+  --pc-steel: var(--steel, #4a5159);
+  --pc-red: var(--red, #e10600);
+  --pc-red-deep: var(--red-deep, #b30500);
+  --pc-ease: var(--ease, cubic-bezier(0.22, 1, 0.36, 1));
+}
+
+.profile-card {
+  position: relative;
+  margin: 32px 0;
+  padding: 26px 26px 24px;
+  background: var(--pc-ice-light);
+  border: 1px solid var(--pc-ice-deep);
+  border-top: 4px solid var(--pc-red);
+  border-radius: 4px;
+  color: var(--pc-steel);
+  box-shadow: 0 18px 30px -22px rgba(14, 15, 17, 0.55);
+  transition:
+    box-shadow 0.3s var(--pc-ease),
+    transform 0.3s var(--pc-ease);
+}
+
+.profile-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 24px 36px -22px rgba(14, 15, 17, 0.65);
+}
+
+/* Racing stripe sweep */
+.profile-card {
+  overflow: hidden;
+  --pc-stripe-w: 64px;
+}
+
+.profile-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--pc-stripe-w) * -2);
+  width: var(--pc-stripe-w);
+  opacity: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    var(--pc-red) 0 55%,
+    transparent 55% 70%,
+    var(--pc-red) 70% 100%
+  );
+  transform: skewX(-22deg);
+}
+
+.profile-card:hover::before {
+  animation: pc-stripe-sweep 0.8s var(--pc-ease) both;
+}
+
+@keyframes pc-stripe-sweep {
+  from {
+    left: calc(var(--pc-stripe-w) * -2);
+    opacity: 0.9;
+  }
+  to {
+    left: calc(100% + var(--pc-stripe-w));
+    opacity: 0.9;
+  }
+}
+
+.profile-card h2 {
+  margin: 0 0 14px;
+  color: var(--pc-obsidian);
+  font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+  font-weight: 600;
+  font-size: 1.5rem;
+  letter-spacing: 0.04em;
+}
+
+.profile-card p {
+  margin: 0 0 14px;
+  max-width: 68ch;
+  line-height: 1.65;
+}
+
+.tag {
+  display: inline-block;
+  margin: 0 6px 6px 0;
+  padding: 5px 12px;
+  border-radius: 3px;
+  background: var(--pc-obsidian);
+  color: var(--pc-ice-light);
+  font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  transition:
+    background-color 0.25s var(--pc-ease),
+    transform 0.25s var(--pc-ease);
+}
+
+.tag:hover {
+  background: var(--pc-red);
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .profile-card,
+  .tag {
+    transition: none;
+  }
+
+  .profile-card:hover::before {
+    animation: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .profile-card {
+    padding: 20px 18px;
+  }
+}

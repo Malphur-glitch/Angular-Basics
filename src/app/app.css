@@ -1,0 +1,316 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600;700&display=swap');
+
+/* ---------- Tokens ---------- */
+:host {
+  --obsidian: #0e0f11;
+  --obsidian-soft: #1b1d21;
+  --ice: #e9edf0;
+  --ice-light: #f6f8f9;
+  --ice-deep: #c8d0d6;
+  --steel: #4a5159;
+  --mist: #aab3ba;
+  --red: #e10600;
+  --red-deep: #b30500;
+  --red-glow: #ff4a3d; /* red for text on dark surfaces */
+
+  --pad: 40px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  display: block;
+  min-height: 100vh;
+  padding: 40px 16px;
+
+  /* Red honeycomb drawn as an inline SVG tile, so there is no image file to host.
+     The glow sits on top, the hex lines in the middle, obsidian underneath. */
+  background-color: var(--obsidian);
+  background-image:
+    radial-gradient(ellipse 70% 45% at 50% 0%, rgba(225, 6, 0, 0.22), transparent 70%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='48.5' viewBox='0 0 28 48.5'%3E%3Cpath d='M14 0V8.08M14 8.08L0 16.17M14 8.08L28 16.17M0 16.17V32.33M28 16.17V32.33M0 32.33L14 40.42M28 32.33L14 40.42M14 40.42V48.5' fill='none' stroke='%23e10600' stroke-opacity='0.3' stroke-width='1'/%3E%3C/svg%3E");
+  background-size: auto, 56px 97px;
+  background-attachment: fixed;
+}
+
+/* ---------- Panel ---------- */
+.resume {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--pad);
+  background: var(--ice);
+  color: var(--obsidian);
+  font-family: 'Barlow', Arial, Helvetica, sans-serif;
+  font-size: 1.02rem;
+  line-height: 1.7;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.7);
+  animation: panel-in 0.7s var(--ease) both;
+}
+
+/* ---------- Intro: the one bold moment ---------- */
+.intro {
+  position: relative;
+  text-align: center;
+  margin: calc(var(--pad) * -1) calc(var(--pad) * -1) 36px;
+  padding: 56px var(--pad) 48px;
+  background: var(--obsidian);
+  border-bottom: 0;
+}
+
+/* racing stripes */
+.intro::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 10px;
+  background:
+    linear-gradient(var(--red), var(--red)) 0 0 / 100% 6px no-repeat,
+    linear-gradient(var(--red), var(--red)) 0 100% / 100% 2px no-repeat;
+  transform-origin: left center;
+  animation: stripe-in 0.9s var(--ease) 0.25s both;
+}
+
+.intro h1 {
+  margin: 0 0 8px;
+  color: var(--ice-light);
+  font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+  font-weight: 700;
+  font-size: clamp(2.4rem, 6vw, 3.6rem);
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+}
+
+.intro p {
+  margin: 0;
+  color: var(--mist);
+  font-size: 0.98rem;
+  overflow-wrap: anywhere;
+}
+
+.intro a {
+  color: var(--red-glow);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.25s var(--ease), color 0.25s var(--ease);
+}
+
+.intro a:hover {
+  color: var(--ice-light);
+  text-decoration-color: var(--red);
+}
+
+/* ---------- Sections ---------- */
+section {
+  margin: 32px 0;
+}
+
+section h2 {
+  margin: 0 0 16px;
+  padding: 2px 0 2px 14px;
+  border-left: 4px solid var(--red);
+  border-bottom: 0;
+  color: var(--obsidian);
+  font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+  font-weight: 600;
+  font-size: 1.5rem;
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
+section p {
+  margin: 0;
+  max-width: 68ch;
+  color: var(--steel);
+}
+
+/* ---------- Skills ---------- */
+ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  padding: 10px 14px;
+  background: var(--ice-light);
+  border: 1px solid var(--ice-deep);
+  border-left: 3px solid var(--obsidian);
+  border-radius: 3px;
+  transition:
+    border-left-color 0.25s var(--ease),
+    background-color 0.25s var(--ease),
+    transform 0.25s var(--ease);
+}
+
+li:hover {
+  border-left-color: var(--red);
+  background: #ffffff;
+  transform: translateX(3px);
+}
+
+/* ---------- Interaction block ---------- */
+.interaction {
+  margin: 40px calc(var(--pad) * -1) calc(var(--pad) * -1);
+  padding: 36px var(--pad) 40px;
+  background: var(--obsidian);
+}
+
+.interaction h2 {
+  color: var(--ice-light);
+}
+
+.interaction p {
+  margin-bottom: 20px;
+  color: var(--mist);
+}
+
+button {
+  border: 0;
+  border-radius: 3px;
+  padding: 12px 26px;
+  background: var(--red);
+  color: #ffffff;
+  cursor: pointer;
+  font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 0.06em;
+  box-shadow: 0 0 0 0 rgba(225, 6, 0, 0);
+  transition:
+    background-color 0.25s var(--ease),
+    transform 0.25s var(--ease),
+    box-shadow 0.25s var(--ease);
+}
+
+button:hover {
+  background: var(--red-deep);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px -8px rgba(225, 6, 0, 0.65);
+}
+
+button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+button:focus-visible,
+.intro a:focus-visible {
+  outline: 2px solid var(--ice-light);
+  outline-offset: 3px;
+}
+
+/* ---------- Racing stripe sweep on hover ---------- */
+.intro,
+li,
+button {
+  position: relative;
+  overflow: hidden;
+  --stripe: var(--red);
+  --stripe-w: 48px;
+}
+
+.intro {
+  --stripe-w: 90px;
+}
+
+/* white stripes, because red-on-red would vanish on the button */
+button {
+  --stripe: rgba(255, 255, 255, 0.6);
+}
+
+.intro::before,
+li::before,
+button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--stripe-w) * -2);
+  width: var(--stripe-w);
+  opacity: 0;
+  pointer-events: none;
+  /* thick stripe, gap, thin stripe */
+  background: linear-gradient(
+    90deg,
+    var(--stripe) 0 55%,
+    transparent 55% 70%,
+    var(--stripe) 70% 100%
+  );
+  transform: skewX(-22deg);
+}
+
+.intro:hover::before,
+li:hover::before,
+button:hover::before {
+  animation: stripe-sweep 0.7s var(--ease) both;
+}
+
+/* ---------- Motion ---------- */
+@keyframes stripe-sweep {
+  from {
+    left: calc(var(--stripe-w) * -2);
+    opacity: 1;
+  }
+  to {
+    left: calc(100% + var(--stripe-w));
+    opacity: 1;
+  }
+}
+
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes stripe-in {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .resume,
+  .intro::after,
+  .intro:hover::before,
+  li:hover::before,
+  button:hover::before {
+    animation: none;
+  }
+
+  li,
+  button,
+  .intro a {
+    transition: none;
+  }
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 600px) {
+  :host {
+    --pad: 20px;
+    padding: 12px;
+  }
+
+  .intro {
+    padding-top: 40px;
+    padding-bottom: 36px;
+  }
+
+  ul {
+    grid-template-columns: 1fr;
+  }
+}
